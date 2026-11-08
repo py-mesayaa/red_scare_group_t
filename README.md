@@ -1,0 +1,1 @@
+# red_scare_group_t
