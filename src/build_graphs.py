@@ -1,3 +1,6 @@
+from itu.algs4.graphs.graph import Graph
+from itu.algs4.graphs.digraph import Digraph
+
 def parse_graph(path):
     """ Read Red scare instance file into an adjacency list.
 
@@ -41,3 +44,20 @@ def parse_graph(path):
                     directed = True
 
         return adj_list , reds, s, t, directed
+
+
+def to_algs4(adj_list, directed, keep_edge = lambda v, u: True):
+    """ Convert adjacency list to an instance of Graph or Digraph from the itu.algs4, 
+        so the BFS, dijskta and other algorithms can be used from the library."""
+    names = list(adj_list)
+    index = {name: i for i, name in enumerate(names)}
+    G = Digraph(len(names)) if directed else Graph(len(names))
+    for v in names:
+        for u in adj_list[v]:
+            if u == v or not keep_edge(v, u):
+                #dropping self-loops as covered in the description
+                continue
+            if directed or index[v] < index[u]:
+                G.add_edge(index[v], index[u])
+
+    return G, index, names
