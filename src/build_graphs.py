@@ -46,9 +46,21 @@ def parse_graph(path):
         return adj_list , reds, s, t, directed
 
 
-def to_algs4(adj_list, directed, keep_edge = lambda v, u: True):
+def to_algs4(adj_list : dict, directed: bool, keep_edge = lambda v, u: True):
     """ Convert adjacency list to an instance of Graph or Digraph from the itu.algs4, 
-        so the BFS, dijskta and other algorithms can be used from the library."""
+        so the BFS, dijskta and other algorithms can be used from the library.
+        
+    Arguments:
+        adj_list: (dict) adjacency dictionary from parse_graph
+        directed: (bool) from parse_graph, True if graph is directed, else False
+        keep_edge: (function) a function that takes two vertices v and u and returns True if the edge (v, u) should be kept, False otherwise. 
+                    This can be used to filter out certain edges based on custom criteria.
+    Returns:
+        G: an instance of Graph or Digraph from itu.algs4 
+        index: a dictionary mapping vertex names to their corresponding indices in the graph
+        names: a list of vertex names in the order they were added to the graph.
+        """
+
     names = list(adj_list)
     index = {name: i for i, name in enumerate(names)}
     G = Digraph(len(names)) if directed else Graph(len(names))
@@ -57,7 +69,13 @@ def to_algs4(adj_list, directed, keep_edge = lambda v, u: True):
             if u == v or not keep_edge(v, u):
                 #dropping self-loops as covered in the description
                 continue
-            if directed or index[v] < index[u]:
+            if directed:
+                # one direction edge as Digraph - just one way from v -> u
                 G.add_edge(index[v], index[u])
+            elif index[v] < index[u] and keep_edge(v, u) and keep_edge(u, v):
+                # undirected edges
+                # each undirected edge appears in both adjacency lists, but Graph.add_edge
+                # links both ends, so only add the copy where index[v] < index[u]
+                G.add_edge(index[v], index[u])    
 
     return G, index, names
