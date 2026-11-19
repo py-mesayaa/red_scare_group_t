@@ -40,11 +40,3 @@ def few(adj_list, red_vertices, s, t):
     else:
         return distances[t]
 
-
-if __name__ == "__main__":
-    data_folder = Path("red-scare/data")
-
-    for path in sorted(data_folder.glob("*.txt")):
-        adj_list, red_vertices, s, t, directed = parse_graph(path)
-        result = few(adj_list, red_vertices, s, t)
-        print(f"{path.name}: FEW = {result}")
