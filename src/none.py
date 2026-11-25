@@ -3,12 +3,15 @@ from build_graphs import parse_graph
 from pathlib import Path
 
 def none(adj_lst, red_vertices, s, t):
+    # Removing the red vertices before the actual BFS
     normal_vertices = set()
 
     for vertex in adj_lst:
         if vertex not in red_vertices or vertex == s or vertex == t:
             normal_vertices.add(vertex)
 
+
+    # BFS that uses only the allowed vertices
     dists = {}
     dists[s] = 0
     queue = deque([s])
