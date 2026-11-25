@@ -1,6 +1,7 @@
 from pathlib import Path
 from build_graphs import parse_graph
 from few import few
+from none import none
 
 def all_results(algorithm):
     data_folder = Path("red-scare/data")
@@ -24,8 +25,8 @@ def report_500_plus(algorithm):
 
 if __name__ == "__main__":
     print("ALL RESULTS")
-    for name, n, result in all_results(few):
+    for name, n, result in all_results(none):
         print(f"{name}: n = {n}, result = {result}")
 
     print("\nREPORT RESULTS (500+ VERTICES)")
-    report_500_plus(few)
+    report_500_plus(none)
