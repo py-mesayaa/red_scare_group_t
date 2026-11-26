@@ -1,5 +1,3 @@
-from build_graphs import parse_graph
-from pathlib import Path
 from collections import deque
 from collections import defaultdict, deque
 
@@ -140,23 +138,23 @@ def many_one_red(adj_list, reds, s, t):
 
 def solve_many(adj_list, reds, s, t, directed):
 
-    # Step 1: reachability. Unreachable instances are already solved -> -1.
+    # Step 1: reachability
     if not bfs_reachability(adj_list, s, t):
-        return (-1, "unreachable")
+        return -1
 
-    # Step 2: no red vertices. Already reachable, so answer is 0.
+    # Step 2: no red vertices
     if len(reds) == 0:
-        return (0, "no_red")
+        return 0
 
-    # Step 3: undirected + exactly one red. Flow solver.
+    # Step 3: undirected + exactly one red
     if not directed and len(reds) == 1:
-        return (many_one_red(adj_list, reds, s, t), "one_red")
+        return many_one_red(adj_list, reds, s, t)
 
-    # Step 4: Kahn's algorithm.
+    # Step 4: topological sorting
     topo = topological_order(adj_list)
 
     if topo is None:
-        return ("?!", "np_hard")
+        return "?!"
 
-    # Step 5: DAG dynamic programming.
-    return (many_dag(adj_list, reds, s, t, topo), "dag")
+    # Step 5: DAG dynamic programming
+    return many_dag(adj_list, reds, s, t, topo)
