@@ -12,27 +12,27 @@ Official problem statement and instance gallery: [`red-scare/doc/red-scare.pdf`]
 ```text
 red_scare_group_t/
 ├── red-scare/
-│   ├── data/                  # Graph instances
+│   ├── data/                               # Graph instances
 │   └── doc/
-│       ├── red-scare.pdf      # Official problem statement
-│       └── report.pdf         # Report template
+│       ├── red-scare.pdf                   # Official problem statement
+│       └── Red_Scare_report___Group_T.pdf  # Final group report
 │
 ├── src/
-│   ├── build_graphs.py        # Graph parsing and construction
-│   ├── create_results.py      # Runs all algorithms and generates results
-│   ├── alternate.py           # ALTERNATE solution
-│   ├── few.py                 # FEW solution
-│   ├── many.py                # MANY solution
-│   ├── none.py                # NONE solution
-│   ├── some.py                # SOME solution
+│   ├── build_graphs.py                     # Graph parsing and construction
+│   ├── create_results.py                   # Runs all algorithms and generates results
+│   ├── alternate.py                        # ALTERNATE solution
+│   ├── few.py                              # FEW solution
+│   ├── many.py                             # MANY solution
+│   ├── none.py                             # NONE solution
+│   ├── some.py                             # SOME solution
 │   │
 │   ├── results/
-│   │   └── results.txt        # Generated results for all instances
+│   │   └── results.txt                     # Generated results for all instances
 │   │
-│   └── testing/               # Tests and experimental scripts
+│   └── testing/                            # Tests and experimental scripts
 │
-├── requirements.txt           # Python dependencies
-└── README.md                  # Project documentation
+├── requirements.txt                        # Python dependencies
+└── README.md                               # Project documentation
 ```
 
 
