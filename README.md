@@ -8,25 +8,32 @@ Official problem statement and instance gallery: [`red-scare/doc/red-scare.pdf`]
 
 ## Repository layout
 
+```text
 red_scare_group_t/
 ├── red-scare/
-│   ├── data/                 # Graph instances
-│   └── doc/                  # Problem statement and report template
+│   ├── data/                  # Graph instances
+│   └── doc/
+│       ├── red-scare.pdf      # Official problem statement
+│       └── report.pdf         # Report template
+│
 ├── src/
-│   ├── create_results.py     # Main script for generating all results
-│   ├── build_graphs.py       # Graph parsing and construction
-│   ├── many.py               # MANY algorithm
-│   ├── few.py                # FEW algorithm
-│   ├── none.py               # NONE algorithm
-│   ├── some.py               # SOME algorithm
-│   └── alternate.py          # ALTERNATE algorithm
-├── requirements.txt
-├── README.md
-└── ...
+│   ├── build_graphs.py        # Graph parsing and construction
+│   ├── create_results.py      # Runs all algorithms and generates results
+│   ├── alternate.py           # ALTERNATE solution
+│   ├── few.py                 # FEW solution
+│   ├── many.py                # MANY solution
+│   ├── none.py                # NONE solution
+│   └── some.py                # SOME solution
+│
+├── result/
+│   └── results.txt            # Generated results for all instances
+│
+├── requirements.txt           # Python dependencies
+└── README.md                  # Project documentation
 
 ### Prerequisites
 
-<!-- e.g. Python 3.11+, pip install -r requirements.txt -->
+networkx, numpy, itu.algs4
 
 ### Installation and recreating results
 
