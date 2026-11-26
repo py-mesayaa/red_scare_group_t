@@ -6,6 +6,7 @@ The project implements algorithms for the five problem variants: Alternate, Few,
 
 Official problem statement and instance gallery: [`red-scare/doc/red-scare.pdf`](red-scare/doc/red-scare.pdf). Report skeleton: [`red-scare/doc/report.pdf`](red-scare/doc/report.pdf).
 
+
 ## Repository layout
 
 ```text
@@ -23,13 +24,17 @@ red_scare_group_t/
 │   ├── few.py                 # FEW solution
 │   ├── many.py                # MANY solution
 │   ├── none.py                # NONE solution
-│   └── some.py                # SOME solution
-│
-├── result/
-│   └── results.txt            # Generated results for all instances
+│   ├── some.py                # SOME solution
+│   │
+│   ├── results/
+│   │   └── results.txt        # Generated results for all instances
+│   │
+│   └── testing/               # Tests and experimental scripts
 │
 ├── requirements.txt           # Python dependencies
 └── README.md                  # Project documentation
+```
+
 
 ### Prerequisites
 
