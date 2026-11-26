@@ -138,59 +138,25 @@ def many_one_red(adj_list, reds, s, t):
         flow += p
     return 1 if flow >= 2 else 0
 
-def main():
-    data_dir = Path("../red-scare/data")
-    files = sorted(data_dir.glob("*.txt"))
+def solve_many(adj_list, reds, s, t, directed):
 
-    dag_directed    = []   # directed, reachable, acyclic
-    dag_undirected  = []   # undirected, reachable, acyclic -> only possible if edgeless
-    cyclic_directed = []   # directed, reachable, but cyclic
-    ready_for_dp    = []   # (name, adj_list, reds, s, t, topo)
+    # Step 1: reachability. Unreachable instances are already solved -> -1.
+    if not bfs_reachability(adj_list, s, t):
+        return (-1, "unreachable")
 
-    results = {}
+    # Step 2: no red vertices. Already reachable, so answer is 0.
+    if len(reds) == 0:
+        return (0, "no_red")
 
-    for path in files:
-        adj_list, reds, s, t, directed = parse_graph(path)
+    # Step 3: undirected + exactly one red. Flow solver.
+    if not directed and len(reds) == 1:
+        return (many_one_red(adj_list, reds, s, t), "one_red")
 
-        # Step 1: reachability. Unreachable instances are already solved -> -1.
-        if not bfs_reachability(adj_list, s, t):
-            results[path.stem] = (-1, "unreachable")
-            continue
-        
-        # Step 2: no red vertices. Already reachable, so answer is 0 (any path has zero reds)
-        if len(reds) == 0:
-            results[path.stem] = (0, "no_red")     
-            continue
+    # Step 4: Kahn's algorithm.
+    topo = topological_order(adj_list)
 
-        # Step 3: undirected + exactly one red. flow solver
-        if not directed and len(reds) == 1:
-            results[path.stem] = (many_one_red(adj_list, reds, s, t), "one_red")
-            continue
+    if topo is None:
+        return ("?!", "np_hard")
 
-        # Step 4: Kahn's. Returns an order, or None if cyclic.
-        topo = topological_order(adj_list)
-
-        if topo is None:
-            if directed:
-                cyclic_directed.append(path.stem)
-            continue
-
-        if directed:
-            dag_directed.append(path.stem)
-        else:
-            dag_undirected.append(path.stem)
-
-        ready_for_dp.append((path.stem, adj_list, reds, s, t, topo))
-
-    for name, adj_list, reds, s, t, topo in ready_for_dp:
-        results[name] = (many_dag(adj_list, reds, s, t, topo), "dag")
-
-    # the rest is not solvable by polynomial algorithms, hence we label them "?!"
-    for path in files:
-        name = path.stem
-        if name not in results:
-            results[name] = ("?!", "np_hard")
-    return results
-
-if __name__=="__main__":
-    main()
+    # Step 5: DAG dynamic programming.
+    return (many_dag(adj_list, reds, s, t, topo), "dag")
