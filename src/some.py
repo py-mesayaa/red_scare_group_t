@@ -3,7 +3,7 @@ import networkx as nx
 
 def some(adj_list, red_vertices, s, t, directed):
     """True if s-t path contains a red vertex.
-        Undirected: biconnected components   Directed: only DAGs (NP-hard otherwise)
+        Undirected: biconnected components   Directed: only DAGs 
         
         Arguments: 
         adj_list: adjacency dictionary, mapping each vertex to a list of its neighbors (list).
